@@ -1,0 +1,4 @@
+.sidebar{
+    height: calc(100vh - 60px);
+    border-right: 1px solid #dedede;
+}

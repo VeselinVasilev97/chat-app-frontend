@@ -1,6 +1,6 @@
-// src/contexts/UserContext.tsx
-import { createContext, useState, useContext, ReactNode } from 'react';
+import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { User } from '../types/types';
+import config from '../config';
 
 interface UserContextType {
   user: User | null;
@@ -19,16 +19,16 @@ interface UserProviderProps {
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  
   // Check for saved user data on initial load
-  useState(() => {
+  useEffect(() => {
     const checkUserAuth = async () => {
+      setIsLoading(true);
       try {
-        const token = localStorage.getItem('token');
-        
+        const token = sessionStorage.getItem(config.ACCESS_TOKEN_KEY);
         if (token) {
-          // Replace with your actual API endpoint for token validation
-          const response = await fetch('/api/auth/validate', {
+          // Use config for API endpoint
+          const response = await fetch(`${config.API_URL}/validate`, {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -39,21 +39,21 @@ export const UserProvider = ({ children }: UserProviderProps) => {
             setUser(userData.user);
           } else {
             // Token is invalid, remove it
-            localStorage.removeItem('token');
+            sessionStorage.removeItem(config.ACCESS_TOKEN_KEY);
           }
         }
       } catch (error) {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem(config.ACCESS_TOKEN_KEY);
       } finally {
         setIsLoading(false);
       }
     };
     
     checkUserAuth();
-  });
+  }, []);
   
   const logout = () => {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem(config.ACCESS_TOKEN_KEY);
     setUser(null);
   };
 
