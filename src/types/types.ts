@@ -7,6 +7,7 @@ export interface User {
     avatar?: string;
     status?: 'online' | 'offline' | 'away';
     lastSeen?: Date;
+    profile_picture_url?: string;
   }
   
   export interface Message {

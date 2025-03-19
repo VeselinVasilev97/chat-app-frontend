@@ -1,6 +1,6 @@
-// src/contexts/UserContext.tsx
-import { createContext, useState, useContext, ReactNode } from 'react';
+import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { User } from '../types/types';
+import config from '../config';
 
 interface UserContextType {
   user: User | null;
@@ -19,41 +19,39 @@ interface UserProviderProps {
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  
   // Check for saved user data on initial load
-  useState(() => {
+  useEffect(() => {
     const checkUserAuth = async () => {
+      setIsLoading(true);
       try {
-        const token = localStorage.getItem('token');
         
-        if (token) {
-          // Replace with your actual API endpoint for token validation
-          const response = await fetch('/api/auth/validate', {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
+        const response = await fetch(`${config.API_URL}/validate`, {
+          credentials: 'include', // This is the key part - tells fetch to include cookies
+          method: 'GET'
+        });
+        
+        if (response.ok) {
+          const userData = await response.json();
+          console.log(userData);
           
-          if (response.ok) {
-            const userData = await response.json();
-            setUser(userData.user);
-          } else {
-            // Token is invalid, remove it
-            localStorage.removeItem('token');
-          }
+          setUser(userData.user);
+        } else {
+          setUser(null);
         }
       } catch (error) {
-        localStorage.removeItem('token');
+        console.error("Auth check failed:", error);
+        setUser(null);
       } finally {
         setIsLoading(false);
       }
     };
     
     checkUserAuth();
-  });
+  }, []);
   
   const logout = () => {
-    localStorage.removeItem('token');
+    
     setUser(null);
   };
 
