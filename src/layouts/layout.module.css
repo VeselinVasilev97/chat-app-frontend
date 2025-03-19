@@ -13,11 +13,11 @@
 .sidebarWrapper{
     width: 200px;
     height: 100%;
+    transition: all 0.3s ease;
 }
 .contentWrapper {
     flex: 1;
     max-height: calc(100vh - 60px);
     overflow-y: auto;
-
   }
   

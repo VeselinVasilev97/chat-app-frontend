@@ -1,4 +1,13 @@
+.sidebar,.sidebarCollapsed{
+  height: 100%;
+  background-color: rgb(240, 240, 240);
+  transition: width 0.2s;
+}
+
+.sidebarCollapsed{
+  width: 60px;
+}
+
 .sidebar{
-    height: calc(100vh - 60px);
-    border-right: 1px solid #dedede;
+  width: 200px;
 }

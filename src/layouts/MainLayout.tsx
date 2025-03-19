@@ -17,9 +17,7 @@ const MainLayout = () => {
                 <Nav />
             </div>
             <div className={classes.mainWrapper}>
-                <div className={classes.sidebarWrapper}>
                     <Sidebar />
-                </div>
                 <div className={classes.contentWrapper}>
                     <Outlet />
                 </div>

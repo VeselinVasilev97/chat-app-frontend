@@ -3,15 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../Providers/UserProvider";
 import config from "../../config";
 
+
 interface LoginCredentials {
   email: string;
   password: string;
 }
 
 const LoginFeature = () => {
-  const { setUser,setIsLoading, isLoading } = useUser();
+  const { setUser, setIsLoading, isLoading } = useUser();
   const navigate = useNavigate();
-  
+
   const [credentials, setCredentials] = useState<LoginCredentials>({
     email: '',
     password: ''
@@ -27,7 +28,7 @@ const LoginFeature = () => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
-    
+
     try {
       const controller = new AbortController();
       const response = await fetch(`${config.API_URL}/login`, {
@@ -36,22 +37,22 @@ const LoginFeature = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(credentials),
-        credentials:'include',
+        credentials: 'include',
         signal: controller.signal
       });
-      
-      
+
+
       const data = await response.json();
-      
+
       if (!response.ok) {
         throw new Error(data.message || 'Failed to login');
       }
-      
+
       // Save token to sessionStorage using config key
       setUser(data.user);
-      
+      // Connect to socket - cookies will be sent automatically
       // Redirect to main using config route
-      
+
       navigate(config.ROUTES.MAIN + '/dashboard');
     } catch (err) {
       if (err instanceof Error && err.name === 'AbortError') {
