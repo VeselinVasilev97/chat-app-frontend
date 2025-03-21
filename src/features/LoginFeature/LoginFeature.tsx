@@ -20,7 +20,6 @@ const LoginFeature = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     login(credentials);
-    console.log(isLoading);
   };
     
 

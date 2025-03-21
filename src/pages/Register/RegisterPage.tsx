@@ -142,7 +142,7 @@ const Register = () => {
               type="submit"
             // disabled={isLoading}
             >
-              {/* {isLoading ? 'Creating account...' : 'Create account'} */}
+              Create account
             </button>
           </div>
 

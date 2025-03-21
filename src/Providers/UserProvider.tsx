@@ -43,7 +43,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     const checkUserAuth = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`${config.API_URL}/validate`, {
+        const response = await fetch(`${config.API_URL}/api/validate`, {
           credentials: 'include',
         });
         if (response.ok) {
@@ -61,7 +61,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   }, []);
 
   const login = async (credentials: LoginCredentials) => {
-    const response = await fetch(`${config.API_URL}/login`, {
+    const response = await fetch(`${config.API_URL}/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       body: JSON.stringify(credentials),
     });
 
-    if (!response.ok) {
+    if (response.status !== 200) {
       return false;
     }
 
@@ -80,7 +80,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   const logout = async () => {
     try {
-      const res = await fetch(`${config.API_URL}/logout`, {
+      const res = await fetch(`${config.API_URL}/api/logout`, {
         method: 'POST',
         credentials: 'include'
       });
