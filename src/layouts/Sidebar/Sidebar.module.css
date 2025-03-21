@@ -1,4 +1,9 @@
 .sidebar{
     height: calc(100vh - 60px);
     border-right: 1px solid #dedede;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    padding-top:10px;
 }

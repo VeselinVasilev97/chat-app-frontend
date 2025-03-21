@@ -2,6 +2,7 @@
 
 interface Config {
   API_URL: string;
+  SOCKET_URL: string;
   API_TIMEOUT: number;
   ACCESS_TOKEN_KEY: string;
   REFRESH_TOKEN_KEY: string;
@@ -16,6 +17,7 @@ interface Config {
 
 const development: Config = {
   API_URL: "http://localhost:3000/api",
+  SOCKET_URL: "http://localhost:3000",
   API_TIMEOUT: 10000, // 10 seconds
   ACCESS_TOKEN_KEY: "access_token",
   REFRESH_TOKEN_KEY: "refresh_token",
@@ -30,6 +32,7 @@ const development: Config = {
 
 const production: Config = {
   API_URL: "https://api.yourproductionserver.com/api",
+  SOCKET_URL: "http://localhost:3000",
   API_TIMEOUT: 10000,
   ACCESS_TOKEN_KEY: "access_token",
   REFRESH_TOKEN_KEY: "refresh_token",
@@ -44,6 +47,7 @@ const production: Config = {
 
 const test: Config = {
   API_URL: "http://localhost:3000/api",
+  SOCKET_URL: "http://localhost:3000",
   API_TIMEOUT: 5000,
   ACCESS_TOKEN_KEY: "access_token",
   REFRESH_TOKEN_KEY: "refresh_token",

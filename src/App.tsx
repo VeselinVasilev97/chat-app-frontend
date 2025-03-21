@@ -11,6 +11,7 @@ import MainPage from "./pages/Main/MainPage";
 //components
 import LoadingScreen from "./components/Loading/LoadingComponent";
 import MainLayout from "./layouts/MainLayout";
+import ProtectProvider from "./Providers/ProtectProvider";
 
 const App = () => {
   const { user, isLoading } = useUser();
@@ -22,12 +23,14 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={!user ? <Login /> : <Navigate to="/main" replace />} />
-        <Route path="/register" element={!user ? <Register /> : <Navigate to="/main" replace />} />
+        <Route path="/login" element={!user ? <Login /> : <Navigate to="/main/dashboard" replace />} />
+        <Route path="/register" element={!user ? <Register /> : <Navigate to="/main/dashboard" replace />} />
 
         {/* Wrap all /main routes inside MainLayout */}
         <Route path="/main" element={<MainLayout />}>
-          <Route path="/main/dashboard" element={<MainPage />} />
+        <Route element={<ProtectProvider user={user} />}>
+            <Route path="/main/dashboard" element={<MainPage />} />
+        </Route>
         </Route>
 
         <Route path="/" element={<Navigate to={user ? "/main" : "/login"} replace />} />
