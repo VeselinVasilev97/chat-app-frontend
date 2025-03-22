@@ -1,12 +1,12 @@
 import classes from './Nav.module.css'
-import { useUser } from '../../Providers/UserProvider'
+import { useUser } from '../../Providers/AuthProvider'
 import Button from '../../components/Button/Button'
 import defaultProfileImage from '../../assets/defaultProfileImg.svg'
 import settigns from '../../assets/settings.svg'
 import Searchbar from '../../components/Searchbar/Searchbar'
 const Nav = () => {
   const { user, logout } = useUser()
-
+  
   return (
     <nav className={classes.nav}>
       <div className={classes.navProfile}>

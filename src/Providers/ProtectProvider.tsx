@@ -1,17 +1,15 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { User } from '../types/types';
+// import { User } from '../types/types';
+import { useUser } from './AuthProvider';
 
-interface ProtectProviderProps {
-  user: User | null;
-}
 
-const ProtectProvider = ({ user }: ProtectProviderProps) => {
+  const ProtectProvider = () => {
+    const {user} = useUser()
+    console.log(user);
+    
   if (!user) {
     return <Navigate to="/login" replace />;
   }
-  
-
-
   return <Outlet />;
 };
 

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 //css
 import "./App.css";
 //hooks
-import { useUser } from "./Providers/UserProvider";
+import { useUser } from "./Providers/AuthProvider";
 //pages
 import Login from "./pages/Login/LoginPage";
 import Register from "./pages/Register/RegisterPage";
@@ -12,10 +12,11 @@ import MainPage from "./pages/Main/MainPage";
 import LoadingScreen from "./components/Loading/LoadingComponent";
 import MainLayout from "./layouts/MainLayout";
 import ProtectProvider from "./Providers/ProtectProvider";
+import UserDetailsPage from "./pages/UserDetails/UserDetailsPage";
 
 const App = () => {
   const { user, isLoading } = useUser();
-
+  
   if (isLoading) {
     return <LoadingScreen />;
   }
@@ -26,14 +27,14 @@ const App = () => {
         <Route path="/login" element={!user ? <Login /> : <Navigate to="/main/dashboard" replace />} />
         <Route path="/register" element={!user ? <Register /> : <Navigate to="/main/dashboard" replace />} />
 
-        {/* Wrap all /main routes inside MainLayout */}
-        <Route path="/main" element={<MainLayout />}>
-        <Route element={<ProtectProvider user={user} />}>
+        <Route element={<ProtectProvider />}>
+          <Route path="/main" element={<MainLayout />}>
             <Route path="/main/dashboard" element={<MainPage />} />
-        </Route>
+            <Route path="/main/user" element={<MainPage />} />
+          </Route>
         </Route>
 
-        <Route path="/" element={<Navigate to={user ? "/main" : "/login"} replace />} />
+        <Route path="/" element={<Navigate to={user ? "/main/dashboard" : "/login"} replace />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

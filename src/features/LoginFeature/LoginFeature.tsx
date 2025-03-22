@@ -1,6 +1,6 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 import { Link } from "react-router-dom";
-import { useUser } from "../../Providers/UserProvider";
+import { useUser } from "../../Providers/AuthProvider";
 import config from "../../config";
 import { LoginCredentials } from '../../types/types';
 

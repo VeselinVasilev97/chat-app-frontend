@@ -1,4 +1,4 @@
-import { useUser } from "../../Providers/UserProvider";
+import { useUser } from "../../Providers/AuthProvider";
 // import classes from '../Page.module.css'
 
 
