@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useUserSearch from "../../hooks/users/useUsers";
+import useUsers from "../../hooks/users/useUsers";
 import classes from "./Searchbar.module.css";
 import useClickOutside from "../../hooks/componentsHooks/useClickOutside";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ const Searchbar = () => {
     error,
     findMatchingUsers,
     findUserByEmail,
-  } = useUserSearch();
+  } = useUsers();
 
   const [dropdownVisible, setDropdownVisible] = useState(true);
   const dropdownRef = useClickOutside(() => setDropdownVisible(false));

@@ -18,7 +18,6 @@ const UserDetails = () => {
   return (
     <div>
       <p>{userId}</p>
-
     </div>
   )
 }

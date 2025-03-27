@@ -5,5 +5,14 @@
     flex-direction: column;
     gap: 0.5rem;
     align-items: center;
-    padding-top:10px;
+}
+
+.switchViewBtn{
+    width: 100%;
+    border-radius: 0;
+    background-color: #dedede;
+}
+.switchViewBtn:hover{
+    background-color: #bbbbbb;
+    color: white;
 }

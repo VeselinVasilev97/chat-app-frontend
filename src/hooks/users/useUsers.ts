@@ -7,7 +7,7 @@ interface User {
   email: string;
 }
 
-const useUserSearch = () => {
+const useUsers = () => {
   const [searchParam, setSearchParam] = useState("");
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ const useUserSearch = () => {
     },
     [searchParam]
   );
-  
+
 
   const findUserByEmail = useCallback(async (user_id: string) => {
     if (!user_id.trim()) return;
@@ -75,4 +75,4 @@ const useUserSearch = () => {
   };
 };
 
-export default useUserSearch;
+export default useUsers;

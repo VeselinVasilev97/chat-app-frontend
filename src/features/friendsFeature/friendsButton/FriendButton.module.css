@@ -1,0 +1,11 @@
+.friendBtn{
+    width: 90%;
+    padding: 10px 0px;
+    background-color: transparent;
+    border:1px solid #dedede;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.friendBtn:hover{
+    background-color: #dedede;
+}

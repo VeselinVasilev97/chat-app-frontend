@@ -6,22 +6,21 @@ class SocketService {
   private socket: Socket | null = null;
 
   connect(): void {
-    console.log('Attempting to connect to:', config.SOCKET_URL);
+    console.log('Attempting to connect');
     if (this.socket) {    
-      console.warn('Socket already connected');
       return; // Prevent duplicate connections
     }
     this.socket = io(`${config.SOCKET_URL}`, {
-      withCredentials: true, // Enable sending cookies with the request
+      withCredentials: true,
       reconnection: true,
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
-      transports: ['websocket', 'polling'] // Try both transport methods
+      transports: ['websocket', 'polling'] 
     });
 
-    this.socket.onAny((event, ...args) => {
-      console.log(`Socket event: ${event}`, args);
-    });
+    // this.socket.onAny((event, ...args) => {
+    //   console.log(`Socket event: ${event}`, args);
+    // });
 
     this.setupEventListeners();
   }

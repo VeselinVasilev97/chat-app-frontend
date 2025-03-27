@@ -1,21 +1,33 @@
-import NavLink from '../../components/NavLink/NavLink'
+// import NavLink from '../../components/NavLink/NavLink'
+import { useState } from 'react';
+import Friends from '../../features/friendsFeature/Friends';
 import classes from './Sidebar.module.css'
-
-const sidebarItems = [
-  {
-    pageName: 'Dashboard',
-    label: 'dashboard',
-    to: '/main/dashboard',
-  }
-]
-  
+import { FaUserFriends, FaLayerGroup } from 'react-icons/fa';
+import Button from '../../components/Button/Button';
 const Sidebar = () => {
+  const [view, setView] = useState(true)
   return (
     <div className={classes.sidebar}>
+      <Button onClick={() => setView(!view)} className={classes.switchViewBtn}>
+        {
+          view ?
+            <FaLayerGroup
+              size={30}
+              color={"#262626"}
+            />
+            :
+            <FaUserFriends
+              size={30}
+              color={"#262626"}
+            />
+        }
+
+      </Button>
       {
-        sidebarItems.map((item) => (
-          <NavLink key={item.pageName} to={item.to} label={item.label} /> 
-        ))
+        view ?
+          <Friends />
+          :
+          <p>channels</p>
       }
     </div>
   )
