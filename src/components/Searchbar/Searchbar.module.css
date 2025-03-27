@@ -5,18 +5,46 @@
     background-color: white;
     gap: 0.5rem;
 }
+.searchBarAndBtn{
+    height: 30px;
+}
+
 .searchWrapper input{
     border:0;
-    padding: 10px;
     outline: 0;
+    padding: 0px 10px;
 }
 .dropdown{
     position: absolute;
     background-color: white;
-    bottom:-27px;
+    top: 37px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 2px, rgba(0, 0, 0, 0.23) 0px 1px 2px;
+    gap:5px;
+    padding: 5px;
+    border:1px solid #dedede;
+}
+.searchBtn{
+    height: 100%;
+    border:0;
+    padding: 0px 10px;
+    background-color: aqua;
+    cursor: pointer;
+}
+.searchBtn:disabled{
+    background-color: #dedede;
+    color: white;
+}
+.dropdown button{
+    width: 100%;
+    border: 0;
+    background-color: transparent;
+    padding:10px 10px;
+}
+.dropdown button:hover{
+    background-color: #f0f0f0;
+    cursor: pointer;
 }

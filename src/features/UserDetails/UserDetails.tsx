@@ -1,14 +1,25 @@
-import { useSearchParams } from "react-router-dom";
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useUser } from '../../Providers/AuthProvider';
 
 const UserDetails = () => {
-    const [searchParams] = useSearchParams();
-    const userId = searchParams.get('userid');
-    console.log(userId);
-    console.log("LOGGGINGG");
-    
+  const {user} = useUser()
+  const params = useParams()
+  const userId = params.userid;
+  
+  const getSpecificUserData = async() => {}
 
-    return (
-    <div>UserDetails: ID is : {userId}</div>
+
+  useEffect(()=>{
+
+  },[])
+
+
+  return (
+    <div>
+      <p>{userId}</p>
+
+    </div>
   )
 }
 

@@ -30,7 +30,7 @@ const App = () => {
         <Route element={<ProtectProvider />}>
           <Route path="/main" element={<MainLayout />}>
             <Route path="/main/dashboard" element={<MainPage />} />
-            <Route path="/main/user" element={<UserDetailsPage />} />
+            <Route path="/main/user/:userid" element={<UserDetailsPage />} />
           </Route>
         </Route>
 
