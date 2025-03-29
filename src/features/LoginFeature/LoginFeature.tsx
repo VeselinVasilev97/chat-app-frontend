@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useUser } from "../../Providers/AuthProvider";
 import config from "../../config";
 import { LoginCredentials } from '../../types/types';
+import styles from "./Login.module.css";
 
 const LoginFeature = () => {
   const { login, isLoading } = useUser();
@@ -24,47 +25,46 @@ const LoginFeature = () => {
     
 
   return (
-    <div>
-      <div>
-        <h1>Sign in to your account</h1>
+<div className={styles.container}>
+  <div className={styles.card}>
+    <h1 className={styles.title}>Sign in to your account</h1>
+    <form onSubmit={handleSubmit}>
+      <div className={styles.inputGroup}>
+        <label htmlFor="email" className={styles.label}>Email address</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          className={styles.input}
+          placeholder="Email address"
+          value={credentials.email}
+          onChange={handleChange}
+        />
       </div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <div>
-            <label htmlFor="email">Email address</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              placeholder="Email address"
-              value={credentials.email}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              placeholder="Password"
-              value={credentials.password}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div>
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? "Signing in..." : "Sign in"}
-          </button>
-        </div>
-        <div>
-          <Link to={config.ROUTES.REGISTER}>Don't have an account? Sign up</Link>
-        </div>
-      </form>
-    </div>
+      <div className={styles.inputGroup}>
+        <label htmlFor="password" className={styles.label}>Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          required
+          className={styles.input}
+          placeholder="Password"
+          value={credentials.password}
+          onChange={handleChange}
+        />
+      </div>
+      <button type="submit" className={styles.button} disabled={isLoading}>
+        {isLoading ? "Signing in..." : "Sign in"}
+      </button>
+      <Link to={config.ROUTES.REGISTER} className={styles.link}>
+        Don't have an account? Sign up
+      </Link>
+    </form>
+  </div>
+</div>
+
   );
 };
 

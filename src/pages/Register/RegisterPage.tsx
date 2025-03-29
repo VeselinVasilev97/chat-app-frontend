@@ -1,155 +1,93 @@
-// src/pages/Register.tsx
-import { useState, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
-import { RegisterCredentials } from '../../types/types';
+import { useState, FormEvent, ChangeEvent } from "react";
+import { Link } from "react-router-dom";
+import styles from "../../features/LoginFeature/Login.module.css"; // Reusing the same styles
 
-const Register = () => {
-  const [credentials, setCredentials] = useState<RegisterCredentials>({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+const RegisterFeature = () => {
+  const [credentials, setCredentials] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
+
   const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setCredentials(prev => ({ ...prev, [name]: value }));
+    setCredentials((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError(null);
-
-    // Validate passwords match
     if (credentials.password !== credentials.confirmPassword) {
-      setError("Passwords don't match");
+      setError("Passwords do not match");
       return;
     }
-    const payload = {
-      username: credentials.username,
-      email: credentials.email,
-      password: credentials.password
-    }
-
-    try {
-      // Replace with actual API call
-      const response = await fetch('http://localhost:3000/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Registration failed');
-      }
-
-      // Store token in localStorage
-      sessionStorage.setItem('token', data.token);
-
-      // Update user state
-
-      // Redirect to login
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Registration failed');
-    } finally {
-      // setIsLoading(false);
-    }
+    setError(null);
+    // Call registration function here
   };
 
   return (
-    <div >
-      <div >
-        <div>
-          <h2 >
-            Create your account
-          </h2>
-        </div>
-        {error && (
-          <div >
-            {error}
-          </div>
-        )}
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h2 className={styles.title}>Create your account</h2>
+        {error && <div className={styles.error}>{error}</div>}
         <form onSubmit={handleSubmit}>
-          <div >
-            <div>
-              <label htmlFor="username">
-                Username
-              </label>
-              <input
-                id="username"
-                name="username"
-                type="text"
-                required
-                placeholder="Username"
-                value={credentials.username}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="email" >
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-
-                placeholder="Email address"
-                value={credentials.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-
-                placeholder="Password"
-                value={credentials.password}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="confirmPassword" className="sr-only">
-                Confirm Password
-              </label>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                required
-
-                placeholder="Confirm Password"
-                value={credentials.confirmPassword}
-                onChange={handleChange}
-              />
-            </div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="username" className={styles.label}>Username</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              required
+              className={styles.input}
+              placeholder="Username"
+              value={credentials.username}
+              onChange={handleChange}
+            />
           </div>
-
-          <div>
-            <button
-              type="submit"
-            // disabled={isLoading}
-            >
-              Create account
-            </button>
+          <div className={styles.inputGroup}>
+            <label htmlFor="email" className={styles.label}>Email address</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              className={styles.input}
+              placeholder="Email address"
+              value={credentials.email}
+              onChange={handleChange}
+            />
           </div>
-
-          <div className="text-sm text-center">
-            <Link to="/login" >
-              Already have an account? Sign in
-            </Link>
+          <div className={styles.inputGroup}>
+            <label htmlFor="password" className={styles.label}>Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              className={styles.input}
+              placeholder="Password"
+              value={credentials.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="confirmPassword" className={styles.label}>Confirm Password</label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              required
+              className={styles.input}
+              placeholder="Confirm Password"
+              value={credentials.confirmPassword}
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit" className={styles.button}>Create account</button>
+          <div className={styles.textCenter}>
+            <Link to="/login" className={styles.link}>Already have an account? Sign in</Link>
           </div>
         </form>
       </div>
@@ -157,4 +95,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterFeature;

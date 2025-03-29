@@ -5,8 +5,8 @@ const Friends = () => {
     const { friends } = useFriends();
 
     return (
-        friends.map(({ username, email }) => (
-            <FriendButton key={email} username={username} email={email} />
+        friends.map(({ username, email, isOnline }) => (
+            <FriendButton key={email} username={username} email={email} isOnline={isOnline} />
         ))
     )
 }

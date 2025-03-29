@@ -5,7 +5,17 @@
     border:1px solid #dedede;
     border-radius: 8px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 10px;
 }
 .friendBtn:hover{
     background-color: #dedede;
+}
+
+.status{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
 }

@@ -1,10 +1,12 @@
 import { useState, useCallback, useEffect } from "react";
 import apiService from "../../services/apiService";
+import socketService from "../../services/socketService";
 
 interface User {
   user_id: string;
   username: string;
   email: string;
+  isOnline:boolean;
 }
 
 const useFriends = () => {
@@ -16,7 +18,7 @@ const useFriends = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await apiService.get<User[]>(`/api/users/friends`);
+      const response = await apiService.get<User[]>("/api/users/friends");
 
       if (response.data && Array.isArray(response.data)) {
         setFriends(response.data);
@@ -32,13 +34,26 @@ const useFriends = () => {
 
   useEffect(() => {
     getAllFriends();
+
+    // Subscribe to WebSocket updates
+    const handleFriendListUpdate = (updatedFriends: User[]) => {
+      setFriends(updatedFriends);
+    };
+
+    socketService.on("friendsListWithStatuses", handleFriendListUpdate);
+    socketService.requestFriendsWithStatuses();
+
+    return () => {
+      socketService.off("friendsListWithStatuses", handleFriendListUpdate);
+    };
   }, [getAllFriends]);
 
   return {
     friends,
     loading,
     error,
-    getAllFriends, // Expose the function for manual invocation if needed
+    getAllFriends,
+    setFriends,
   };
 };
 

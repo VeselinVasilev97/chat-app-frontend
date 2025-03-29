@@ -21,7 +21,7 @@ const useUsers = () => {
       setLoading(true);
       setError(null);
   
-      const response = await apiService.get<User[]>(`/users/search/${searchParam}`);
+      const response = await apiService.get<User[]>(`/api/search/${searchParam}`);
   
       if (response.data) {
         setUsers(response.data);
@@ -44,7 +44,7 @@ const useUsers = () => {
 
     try {
       const response = await apiService.get<{ user: User }>(
-        `/users/user/${user_id}`
+        `/api/user/${user_id}`
       );
       if (response.data) {
         return response.data;
