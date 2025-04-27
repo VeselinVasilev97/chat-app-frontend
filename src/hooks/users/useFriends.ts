@@ -21,6 +21,8 @@ const useFriends = () => {
       const response = await apiService.get<User[]>("/api/users/friends");
 
       if (response.data && Array.isArray(response.data)) {
+        console.log(response.data, "friends data");
+        
         setFriends(response.data);
       } else {
         setError("Friend list is empty or invalid data format");
@@ -33,10 +35,13 @@ const useFriends = () => {
   }, []);
 
   useEffect(() => {
-    getAllFriends();
-
+    // getAllFriends();
+    console.log('we are in useEffect');
+    
     // Subscribe to WebSocket updates
     const handleFriendListUpdate = (updatedFriends: User[]) => {
+      console.log(updatedFriends);
+      
       setFriends(updatedFriends);
     };
 
@@ -47,7 +52,7 @@ const useFriends = () => {
       socketService.off("friendsListWithStatuses", handleFriendListUpdate);
     };
   }, [getAllFriends]);
-
+  
   return {
     friends,
     loading,

@@ -14,13 +14,13 @@ class SocketService {
       withCredentials: true,
       reconnection: true,
       reconnectionAttempts: 5,
-      reconnectionDelay: 1000,
+      reconnectionDelay: 5000,
       transports: ["websocket", "polling"],
     });
 
-    this.socket.onAny((event, ...args) => {
-      console.log(`Socket event: ${event}`, args);
-    });
+    // this.socket.onAny((event, ...args) => {
+    //   console.log(`Socket event: ${event}`, args);
+    // });
 
     this.setupEventListeners();
   }
