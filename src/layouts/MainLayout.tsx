@@ -3,8 +3,12 @@ import { Outlet } from "react-router-dom";
 import classes from './layout.module.css'
 import Nav from "./Nav/Nav";
 import Sidebar from "./Sidebar/Sidebar";
+import { useUser } from "../Providers/AuthProvider";
 
 const MainLayout = () => {
+    const { user } = useUser();
+    
+    if (!user) return null;
 
     return (
         <div>

@@ -28,7 +28,7 @@ const App = () => {
         <Route path="/register" element={!user ? <Register /> : <Navigate to="/main/dashboard" replace />} />
 
         <Route element={<ProtectProvider />}>
-          <Route path="/main" element={<MainLayout />}>
+          <Route element={<MainLayout />}>
             <Route path="/main/dashboard" element={<MainPage />} />
             <Route path="/main/user/:userid" element={<UserDetailsPage />} />
           </Route>

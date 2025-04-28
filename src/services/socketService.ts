@@ -5,9 +5,14 @@ import config from "../config";
 class SocketService {
   private socket: Socket | null = null;
 
+  constructor() { 
+    this.connect(); // Automatically connect when the service is instantiated
+  }
   connect(): void {
     console.log("Attempting to connect");
     if (this.socket) {
+      console.log("Already connected to socket. Skipping connection.");
+      
       return; // Prevent duplicate connections
     }
     this.socket = io(`${config.SOCKET_URL}`, {

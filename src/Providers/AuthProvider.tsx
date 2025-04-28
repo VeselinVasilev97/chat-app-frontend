@@ -24,17 +24,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (user) {
-      socketService.connect();
-    } else {
-      socketService.disconnect();
-    }
-    
-    return () => {
-      socketService.disconnect();
-    };
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     socketService.connect();
+  //   }
+  
+  // }, [user]);
+
   useEffect(() => {
     const checkUserAuth = async () => {
       try {
