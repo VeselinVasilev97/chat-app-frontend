@@ -25,15 +25,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
+    if (user && !socketService.isConnected()) {
       socketService.connect();
-    } else {
-      socketService.disconnect();
     }
     
-    return () => {
-      socketService.disconnect();
-    };
   }, [user]);
   useEffect(() => {
     const checkUserAuth = async () => {
@@ -90,6 +85,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       });
       if (res.ok) {
         setUser(null);
+        socketService.disconnect(); // Disconnect the socket on logout
       }
     } catch (error) {
       console.error('Logout error:', error);

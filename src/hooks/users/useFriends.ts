@@ -48,9 +48,9 @@ const useFriends = () => {
     socketService.on("friendsListWithStatuses", handleFriendListUpdate);
     socketService.requestFriendsWithStatuses();
 
-    // return () => {
-    //   socketService.off("friendsListWithStatuses", handleFriendListUpdate);
-    // };
+    return () => {
+      socketService.off("friendsListWithStatuses", handleFriendListUpdate);
+    };
   }, [getAllFriends]);
   
   return {

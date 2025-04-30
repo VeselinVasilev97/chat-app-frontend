@@ -6,7 +6,6 @@ class SocketService {
   private socket: Socket | null = null;
 
   connect(): void {
-    console.log("Attempting to connect");
     if (this.socket) {
       return; // Prevent duplicate connections
     }
@@ -68,8 +67,6 @@ class SocketService {
 
   emit(event: string, ...args: any[]): void {
     if (!this.socket) {
-      console.warn("Socket not connected. Attempting to connect...");
-      this.connect();
       return;
     }
     this.socket.emit(event, ...args);
@@ -85,7 +82,6 @@ class SocketService {
 
   reconnect(): void {
     console.log("Attempting to reconnect...");
-    this.disconnect();
     this.connect();
   }
 
