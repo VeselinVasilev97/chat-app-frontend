@@ -30,7 +30,6 @@ const LoginFeature = () => {
     <h1 className={styles.title}>Sign in to your account</h1>
     <form onSubmit={handleSubmit}>
       <div className={styles.inputGroup}>
-        <label htmlFor="email" className={styles.label}>Email address</label>
         <input
           id="email"
           name="email"
@@ -43,7 +42,6 @@ const LoginFeature = () => {
         />
       </div>
       <div className={styles.inputGroup}>
-        <label htmlFor="password" className={styles.label}>Password</label>
         <input
           id="password"
           name="password"

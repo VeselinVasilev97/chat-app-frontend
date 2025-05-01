@@ -1,19 +1,14 @@
 import FriendButton from './friendsButton/FriendButton';
-type Friend = {
-    email: string;
-    isOnline: boolean;
-    user_id: string;
-    username: string;
-}
+import { Friend } from './types';
+
 type FriendsProps = {
     friends: Friend[];
 };
 
 const Friends: React.FC<FriendsProps> = ({ friends }) => {
-
     return (
-        friends.map(({ username, email, isOnline }) => (
-            <FriendButton key={email} username={username} email={email} isOnline={isOnline} />
+        friends.map((friend) => (
+            <FriendButton key={friend.email} friend={friend} />
         ))
     )
 }

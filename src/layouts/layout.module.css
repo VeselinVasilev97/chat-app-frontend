@@ -20,5 +20,5 @@
 }
 
 .content{
-    height:95%;
+    height:calc(100% - 50px);
 }
