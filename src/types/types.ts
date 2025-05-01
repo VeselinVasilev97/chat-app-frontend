@@ -1,7 +1,7 @@
 // src/types/index.ts
 
 export interface User {
-    id: string;
+    user_id: string;
     username: string;
     email: string;
     avatar?: string;
@@ -10,15 +10,12 @@ export interface User {
     profile_picture_url?: string;
   }
   
-  export interface Message {
-    id: string;
-    content: string;
-    senderId: string;
-    receiverId?: string;
-    roomId?: string;
-    timestamp: Date;
-    read: boolean;
-  }
+export type Message = {
+  sender_id: string;
+  receiver_id: string;
+  content: string;
+  timestamp: string;
+};
   
   export interface Room {
     id: string;

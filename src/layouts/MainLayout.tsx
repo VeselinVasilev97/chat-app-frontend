@@ -25,7 +25,6 @@ const MainLayout = () => {
                         <Chats />
                     </div>
                 </ChatProvider>
-
             </div>
         </div>
     );

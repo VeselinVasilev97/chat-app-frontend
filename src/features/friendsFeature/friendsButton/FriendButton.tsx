@@ -8,10 +8,11 @@ type FriendButtonProps = {
 
 const FriendButton: React.FC<FriendButtonProps> = ({ friend }) => {
     const { addChat } = useChatContext();
+    
         
     const handleAddChat = () => {
         const chat = {
-            id: friend.email,
+            receiver_id: friend.user_id,
             name: friend.username,
             chatImg: friend.profile_picture_url,
         };
