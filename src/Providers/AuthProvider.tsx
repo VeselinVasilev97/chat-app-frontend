@@ -24,13 +24,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     socketService.connect();
-  //   }
-  
-  // }, [user]);
-
+  useEffect(() => {
+    if (user && !socketService.isConnected()) {
+      socketService.connect();
+    }
+    
+  }, [user]);
   useEffect(() => {
     const checkUserAuth = async () => {
       try {
@@ -86,6 +85,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       });
       if (res.ok) {
         setUser(null);
+        socketService.disconnect(); // Disconnect the socket on logout
       }
     } catch (error) {
       console.error('Logout error:', error);

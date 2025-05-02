@@ -3,6 +3,8 @@ import { Outlet } from "react-router-dom";
 import classes from './layout.module.css'
 import Nav from "./Nav/Nav";
 import Sidebar from "./Sidebar/Sidebar";
+import Chats from "../features/chat/chats/Chats";
+import { ChatProvider } from "../Providers/chat/ChatProvider";
 import { useUser } from "../Providers/AuthProvider";
 
 const MainLayout = () => {
@@ -16,12 +18,17 @@ const MainLayout = () => {
                 <Nav />
             </div>
             <div className={classes.mainWrapper}>
-                <div className={classes.sidebarWrapper}>
-                    <Sidebar />
-                </div>
-                <div className={classes.contentWrapper}>
-                    <Outlet />
-                </div>
+                <ChatProvider>
+                    <div className={classes.sidebarWrapper}>
+                        <Sidebar />
+                    </div>
+                    <div className={classes.contentWrapper}>
+                        <div className={classes.content}>
+                            <Outlet />
+                        </div>
+                        <Chats />
+                    </div>
+                </ChatProvider>
             </div>
         </div>
     );

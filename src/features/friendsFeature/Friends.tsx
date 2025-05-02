@@ -1,12 +1,14 @@
-import useFriends from '../../hooks/users/useFriends'
 import FriendButton from './friendsButton/FriendButton';
+import { Friend } from './types';
 
-const Friends = () => {
-    const { friends } = useFriends();
-    
+type FriendsProps = {
+    friends: Friend[];
+};
+
+const Friends: React.FC<FriendsProps> = ({ friends }) => {
     return (
-        friends.map(({ username, email, isOnline }) => (
-            <FriendButton key={email} username={username} email={email} isOnline={isOnline} />
+        friends.map((friend) => (
+            <FriendButton key={friend.email} friend={friend} />
         ))
     )
 }

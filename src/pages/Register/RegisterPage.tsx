@@ -34,7 +34,6 @@ const RegisterFeature = () => {
         {error && <div className={styles.error}>{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
-            <label htmlFor="username" className={styles.label}>Username</label>
             <input
               id="username"
               name="username"
@@ -47,7 +46,6 @@ const RegisterFeature = () => {
             />
           </div>
           <div className={styles.inputGroup}>
-            <label htmlFor="email" className={styles.label}>Email address</label>
             <input
               id="email"
               name="email"
@@ -60,7 +58,6 @@ const RegisterFeature = () => {
             />
           </div>
           <div className={styles.inputGroup}>
-            <label htmlFor="password" className={styles.label}>Password</label>
             <input
               id="password"
               name="password"
@@ -73,7 +70,6 @@ const RegisterFeature = () => {
             />
           </div>
           <div className={styles.inputGroup}>
-            <label htmlFor="confirmPassword" className={styles.label}>Confirm Password</label>
             <input
               id="confirmPassword"
               name="confirmPassword"

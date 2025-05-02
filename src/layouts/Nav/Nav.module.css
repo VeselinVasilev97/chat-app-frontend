@@ -5,9 +5,11 @@ nav{
     display: flex;
     align-items: center ;
     justify-content: space-between;
+    user-select: none;
 }
 
 .navProfile{
+    height: 100%;
     display: flex;
     align-items: center;
     gap: 0.5em;
@@ -15,8 +17,9 @@ nav{
 }
 
 .profileImageNav{
-    height:40px;
-    width:40px;
+    height:50px;
+    width:50px;
+    object-fit: contain;
     border-radius: 50%;
     border:0;
     background-color: rgb(255, 255, 255);
