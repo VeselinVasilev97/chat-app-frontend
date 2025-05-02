@@ -14,6 +14,7 @@ export type Message = {
   sender_id: string;
   receiver_id: string;
   content: string;
+  content_type?: 'text' | 'image' | 'video' | 'audio' | 'file';
   timestamp: string;
 };
   

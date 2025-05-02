@@ -12,6 +12,9 @@ const MainLayout = () => {
     
     if (!user) return null;
 
+
+
+
     return (
         <div>
             <div className={classes.navWrapper}>
