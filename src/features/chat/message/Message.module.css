@@ -1,0 +1,62 @@
+.senderChat,.receiverChat{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatUsername{
+    display: flex;
+    font-size: 12px;
+    color: #555;
+    font-weight: bold;
+}
+
+.senderMessage,.receiverMessage{
+    display: flex;
+    align-items: center;
+    padding: 5px 8px;
+    border-radius: 10px;
+    max-width: 70%;
+    margin: 0px 0px 0px 0px;
+    font-size: 14px;
+}
+.senderMessage{
+    background-color: #0074e9;
+    color: #ffffff;
+}
+.receiverMessage{
+    background-color: #dedede;
+}
+.senderChat{
+    align-items: flex-end;
+}
+.receiverChat{
+    align-items: flex-start;
+}
+.sentOn{
+    font-size: 10px;
+    color: #a0a0a0;
+}
+
+.adminColor {
+    background: linear-gradient(
+      90deg,
+      red,
+      orange,
+      yellow,
+      green,
+      blue,
+      indigo,
+      violet
+    );
+    background-size: 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 5s linear infinite;
+  }
+  
+  @keyframes rainbow {
+    0% { background-position: 0% }
+    100% { background-position: 100% }
+  }

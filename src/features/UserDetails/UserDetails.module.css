@@ -1,0 +1,49 @@
+.column {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.profileImageContainer{
+    padding: 10px;
+}
+
+
+.username {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  font-size: 30px;
+}
+
+.profileImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 200px;
+  background-color: #dedede;
+  border-radius: 50%;
+}
+.profileInfoTextPair {
+  display: flex;
+  gap: 20px;
+}
+
+.profileInfoKeyText {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 10px;
+}
+.profileInfoValueText {
+  font-size: 20px;
+  font-weight: 400;
+  color: #000000;
+  margin-bottom: 10px;
+}

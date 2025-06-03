@@ -4,6 +4,7 @@ import socketService from '../../../services/socketService'
 import { useEffect, useState } from 'react'
 import apiService from '../../../services/apiService'
 import { Message } from '../../../types/types'
+import MessageComponent from '../message/Message'
 
 interface ChatWindowProps {
   chatInfo: {
@@ -14,74 +15,75 @@ interface ChatWindowProps {
 }
 
 const ChatWindow: React.FC<ChatWindowProps> = ({ chatInfo }) => {
-  const {user} = useUser()
-  
-  if(!user) return null
-  const senderId = user.user_id;
+  const { user } = useUser()
+
+  if (!user) return null
+  const myUserId = user.user_id;
   const receiverId = chatInfo.receiver_id;
   const [oldMessages, setOldMessages] = useState<Message[]>([])
   const [content, setContent] = useState<string>("")
+  const chatId = `${myUserId}-${receiverId}`
 
-  
-  const senderMessage = () => {
-    socketService.sendPrivateMessage(senderId, receiverId, content)
+
+  const senderMessage = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    socketService.sendPrivateMessage(myUserId, receiverId, content)
+    setOldMessages((prevMessages) => [
+      ...prevMessages,
+      {
+        message_id: Math.random().toString(36).substring(2, 15), // Generate a random message ID
+        sender_id: myUserId,
+        receiver_id: receiverId,
+        content: content,
+        sent_at: new Date().toISOString(),
+      },
+    ]);
+    setContent("")
   }
-    const getMessages = async () => {
-        const response = await apiService.get<Message[]>(
-          `/api/messages/${senderId}/${receiverId}`,
-        );
-        if(!response.data){
-          console.log("No messages found")
-          setOldMessages([])
-        }else{
-          const reversedMessages = response.data.reverse()
-          setOldMessages(reversedMessages)
-        }
+  const getMessages = async () => {
+    const response = await apiService.get<Message[]>(
+      `/api/messages/${myUserId}/${receiverId}`,
+    );
+    if (!response.data) {
+      console.log("No messages found")
+      setOldMessages([])
+    } else {
+      setOldMessages(response.data)
     }
-    console.log(chatInfo);
-    
+  }
 
-  useEffect(() =>{
+  function scrollChatWindowToBottom(chatId: string) {
+    const chatWindow = document.getElementById(chatId);
+    if (chatWindow) {
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+  }
+
+
+  useEffect(() => {
     getMessages()
-},[])
+  }, [])
+
+  useEffect(()=>{
+    scrollChatWindowToBottom(chatId)
+  },[oldMessages])
+
   return (
     <div className={classes.mainChatWindow}>
       <div className={classes.chatHeader}>{chatInfo.name}</div>
-      <div className={classes.chatContent}>
+      <div id={chatId} className={classes.chatContent}>
         {
-          oldMessages.map((message,i) => {
-            if (message.sender_id === senderId) {
-              return (
-                <div key={i} className={classes.senderChat}>
-                  <div className={classes.chatUsername}>{user.username} <img className={classes.memberImage} /></div>
-                  <p className={classes.senderMessage}>{message.content}</p>
-                </div>
-              )
-            } else {
-              return (
-                <div key={i} className={classes.receiverChat}>
-                  <label className={classes.chatUsername}><img className={classes.memberImage} />{chatInfo.name}</label>
-                  <p className={classes.receiverMessage}>{message.content}</p>
-                </div>
-              )
-            }
+          oldMessages.map((message) => {
+            return (
+              <MessageComponent key={message.message_id} isMe={message.sender_id === myUserId} username={message.sender_id === myUserId ? user.username : chatInfo.name} content={message.content} sentOn={message.sent_at}/>
+            )
           })
         }
-        {/* <div className={classes.senderChat}>
-          <div className={classes.chatUsername}>Dus7 <img className={classes.memberImage} /></div>
-          <p className={classes.senderMessage}>Hi, how are you my Friend,can you help me with something I need more text to test my chat bubbles. are they working okay. ???</p>
-        </div>
-        <div className={classes.receiverChat}>
-          <label className={classes.chatUsername}><img className={classes.memberImage} />Dido95</label>
-          <p className={classes.receiverMessage}>Hey I'm good what about you how
-            are you doing?</p>
-        </div> */}
-        
       </div>
-      <div className={classes.chatInput}>
-        <input type="text" value={content} onChange={(e)=>setContent(e.target.value)} placeholder="Type a message..." className={classes.inputField} />
-        <button onClick={senderMessage} className={classes.sendButton}>Send</button>
-      </div>
+      <form onSubmit={(e)=>senderMessage(e)} className={classes.chatInput}>
+        <input type="text" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Type a message..." className={classes.inputField} />
+        <button type='submit' className={classes.sendButton}>Send</button>
+      </form>
     </div>
   )
 }

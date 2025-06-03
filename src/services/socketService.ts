@@ -25,7 +25,8 @@ class SocketService {
     this.setupEventListeners();
   }
   private handleNewMessage(message: Message): void {
-    console.log("Here should be the logic for adding new messages to global STATE", message);
+    // console.log("Here should be the logic for adding new messages to global STATE", message);
+
   }
   private setupEventListeners(): void {
     if (!this.socket) return;
@@ -76,10 +77,11 @@ class SocketService {
     content: string
   ): void {
     const message: Message = {
+      message_id: Math.random().toString(36).substring(2, 15),
       sender_id,
       receiver_id,
       content,
-      timestamp: new Date().toISOString(),
+      sent_at: new Date().toISOString(),
     };
     this.emit("send_message", message);
     this.handleNewMessage(message);

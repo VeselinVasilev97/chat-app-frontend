@@ -5,7 +5,6 @@ import { useUser } from './AuthProvider';
 
 const ProtectProvider = () => {
   const { user } = useUser()
-console.log(user);
   
   if (!user) {
     return <Navigate to="/login" replace />;
