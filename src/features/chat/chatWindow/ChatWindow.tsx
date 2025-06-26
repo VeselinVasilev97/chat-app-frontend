@@ -14,6 +14,7 @@ interface ChatWindowProps {
   }
 }
 
+
 const ChatWindow: React.FC<ChatWindowProps> = ({ chatInfo }) => {
   const { user } = useUser()
 
@@ -40,6 +41,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ chatInfo }) => {
     ]);
     setContent("")
   }
+
   const getMessages = async () => {
     const response = await apiService.get<Message[]>(
       `/api/messages/${myUserId}/${receiverId}`,
@@ -58,6 +60,22 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ chatInfo }) => {
       chatWindow.scrollTop = chatWindow.scrollHeight;
     }
   }
+
+
+    useEffect(() => {
+    socketService.on('new_message', (message: Message) => {
+      if(message.sender_id === receiverId){
+        console.log(message);
+        setOldMessages((prevMessages) => [...prevMessages, message]);
+      }
+      
+    });
+
+    // return () => {
+    //   socketService.off('new_message');
+    //   socketService.disconnect();
+    // };
+  }, []);
 
 
   useEffect(() => {

@@ -16,8 +16,8 @@ interface Config {
 }
 
 const development: Config = {
-  API_URL: "http://192.168.1.3:3000",
-  SOCKET_URL: "http://192.168.1.3:3000",
+  API_URL: "http://localhost:3000",
+  SOCKET_URL: "http://localhost:3000",
   API_TIMEOUT: 10000, // 10 seconds
   ACCESS_TOKEN_KEY: "access_token",
   REFRESH_TOKEN_KEY: "refresh_token",

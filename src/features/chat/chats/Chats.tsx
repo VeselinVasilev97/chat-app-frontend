@@ -1,13 +1,15 @@
+import { useEffect } from 'react'
 import { useChatContext } from '../../../contexts/chat/ChatContext'
+import socketService from '../../../services/socketService'
 import ChatWindow from '../chatWindow/ChatWindow'
 import classes from './Chats.module.css'
-
-
 
 const Chats = () => {
   const { chats, activeChats, handleActiveChat } = useChatContext()
 
-  
+
+
+
   if (chats.length === 0) return null
   return (
     <div className={classes.chatsNavBar}>
