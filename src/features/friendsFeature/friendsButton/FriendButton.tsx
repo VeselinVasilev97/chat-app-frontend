@@ -11,12 +11,11 @@ const FriendButton: React.FC<FriendButtonProps> = ({ friend }) => {
     
         
     const handleAddChat = () => {
-        const chat = {
+        addChat({
             receiver_id: friend.user_id,
             name: friend.username,
             chatImg: friend.profile_picture_url,
-        };
-        addChat(chat)
+        })
     };
     return (
         <button onClick={handleAddChat} className={classes.friendBtn}>

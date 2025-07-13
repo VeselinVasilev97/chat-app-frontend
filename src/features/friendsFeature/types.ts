@@ -3,5 +3,5 @@ export type Friend = {
     email: string;
     isOnline: boolean;
     username: string;
-    profile_picture_url: string;
+    profile_picture_url?: string;
 }

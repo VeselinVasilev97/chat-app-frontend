@@ -3,7 +3,7 @@ import { createContext, useContext } from "react";
 export type Chat = {
   receiver_id: string;
   name: string;
-  chatImg: string;
+  chatImg?: string;
 };
 
 export type ChatContextType = {

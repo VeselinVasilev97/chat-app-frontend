@@ -34,8 +34,6 @@ const useUsers = () => {
     },
     [searchParam]
   );
-
-
   const findUserByEmail = useCallback(async (user_id: string) => {
     if (!user_id.trim()) return;
 

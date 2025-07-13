@@ -5,28 +5,31 @@ interface User {
   user_id: string;
   username: string;
   email: string;
-  isOnline:boolean;
+  isOnline: boolean;
 }
 
 const useFriends = () => {
   const [friends, setFriends] = useState<User[]>([]);
 
-  useEffect(() => {
     const handleFriendListUpdate = (updatedFriends: User[]) => {
+      console.log("Server is sending to frontened list of friends.");
       setFriends(updatedFriends);
     };
 
-    socketService.on("friendsListWithStatuses", handleFriendListUpdate);
-    socketService.requestFriendsWithStatuses();
+    
+    useEffect(()=>{
+      socketService.on("friendsListWithStatuses", handleFriendListUpdate);
+    },[])
 
-    return () => {
-      socketService.off("friendsListWithStatuses", handleFriendListUpdate);
-    };
+
+  const refreshFriends = useCallback(() => {
+    socketService.requestFriendsWithStatuses();
   }, []);
-  
+
+
   return {
     friends,
-    setFriends,
+    refreshFriends
   };
 };
 

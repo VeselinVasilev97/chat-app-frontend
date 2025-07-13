@@ -8,9 +8,9 @@ import MessageComponent from '../message/Message'
 
 interface ChatWindowProps {
   chatInfo: {
-    chatImg: string
     receiver_id: string
     name: string
+    chatImg?: string
   }
 }
 

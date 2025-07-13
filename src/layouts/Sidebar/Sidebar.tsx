@@ -8,6 +8,8 @@ import useFriends from '../../hooks/users/useFriends';
 const Sidebar = () => {
   const [view, setView] = useState(true)
   const { friends } = useFriends();
+  
+
 
   return (
     <div className={classes.sidebar}>

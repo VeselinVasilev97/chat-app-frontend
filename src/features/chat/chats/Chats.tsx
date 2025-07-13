@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
 import { useChatContext } from '../../../contexts/chat/ChatContext'
-import socketService from '../../../services/socketService'
 import ChatWindow from '../chatWindow/ChatWindow'
 import classes from './Chats.module.css'
 

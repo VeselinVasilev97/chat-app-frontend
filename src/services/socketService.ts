@@ -17,7 +17,7 @@ class SocketService {
     this.socket = io(`${config.SOCKET_URL}`, {
       withCredentials: true,
       reconnection: true,
-      reconnectionAttempts: 5,
+      reconnectionAttempts:  1,
       reconnectionDelay: 5000,
       transports: ["websocket", "polling"],
     });
@@ -33,7 +33,8 @@ class SocketService {
 
     this.socket.on("connect", () => {
       console.log("Socket connected!", this.socket?.id);
-      this.requestFriendsWithStatuses(); // Request friends' statuses on connect
+      console.log('SOCKET: FriendList calling');
+      this.requestFriendsWithStatuses();
     });
 
     this.socket.on("connect_error", (error) => {
@@ -71,6 +72,14 @@ class SocketService {
     this.socket.emit(event, ...args);
   }
 
+
+  requestFriendsWithStatuses(): void {
+    if(this.socket?.id){
+      this.emit("requestFriendsListWithStatuses");
+    }
+  }
+
+
   sendPrivateMessage(
     sender_id: string,
     receiver_id: string,
@@ -85,9 +94,6 @@ class SocketService {
     };
     this.emit("send_message", message);
     this.handleNewMessage(message);
-  }
-  requestFriendsWithStatuses(): void {
-    this.emit("requestFriendsListWithStatuses");
   }
   reconnect(): void {
     console.log("Attempting to reconnect...");

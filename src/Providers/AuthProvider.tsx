@@ -6,10 +6,9 @@ import socketService from '../services/socketService';
 
 interface AuthProviderType {
   user: User | null;
-  setUser: (user: User | null) => void;
-  sendFriendRequest: (email: string) => Promise<boolean>;
+  handleSetUser: (user: User) => void;
   isLoading: boolean;
-  setIsLoading: (isLoading: boolean) => void;
+  handleSetLoading: (isLoading: boolean) => void;
   logout: () => Promise<void>;
   login: (credentials: LoginCredentials) => Promise<boolean>;
 }
@@ -24,11 +23,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const handleSetUser = (user: User) => {
+    setUser(user)
+  }
+  const handleSetLoading = (isLoading: boolean) => {
+    setIsLoading(isLoading)
+  }
   useEffect(() => {
     if (user && !socketService.isConnected()) {
       socketService.connect();
     }
-    
+
   }, [user]);
   useEffect(() => {
     const checkUserAuth = async () => {
@@ -75,7 +80,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setIsLoading(false);
     }
   };
-
   const logout = async (): Promise<void> => {
     setIsLoading(true);
     try {
@@ -95,40 +99,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const sendFriendRequest = async (email: string): Promise<boolean> => {
-    try {
-      const response = await fetch(`${config.API_URL}/users/send-request`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-      
-      if (!response.ok) {
-        console.error('Friend request failed:', data.error?.message || 'Unknown error');
-        return false;
-      }
-      
-      return true;
-    } catch (error) {
-      console.error('Error sending friend request:', error);
-      return false;
-    }
-  };
-
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      setUser, 
-      sendFriendRequest, 
-      isLoading, 
-      setIsLoading, 
-      login, 
-      logout 
+    <AuthContext.Provider value={{
+      user,
+      handleSetUser,
+      isLoading,
+      handleSetLoading,
+      login,
+      logout
     }}>
       {children}
     </AuthContext.Provider>

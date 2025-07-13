@@ -5,7 +5,7 @@ type FriendsProps = {
     friends: Friend[];
 };
 
-const Friends: React.FC<FriendsProps> = ({ friends }) => {
+const Friends = ({ friends }:FriendsProps) => {
     return (
         friends.map((friend) => (
             <FriendButton key={friend.email} friend={friend} />
